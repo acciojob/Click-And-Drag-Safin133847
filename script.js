@@ -1,4 +1,3 @@
-// Your code here.
  const itemsContainer = document.querySelector('.items');
   let isDragging = false;
   let startX;
@@ -22,9 +21,14 @@
   });
 
   itemsContainer.addEventListener('mousemove', (e) => {
-    if (!isDragging) return; // Stop the fn from running
+    if (!isDragging) return;
     e.preventDefault();
     const x = e.pageX - itemsContainer.offsetLeft;
     const walk = (x - startX) * 2; // The scroll-fast factor
     itemsContainer.scrollLeft = scrollLeft - walk;
+
+    // Ensure we can actually scroll to the right
+    if (itemsContainer.scrollLeft < 0) {
+      itemsContainer.scrollLeft = 0;
+    }
   });
