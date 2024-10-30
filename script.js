@@ -1,12 +1,11 @@
-<script>
-  const itemsContainer = document.querySelector('.items');
+const itemsContainer = document.querySelector('.items');
   let isDragging = false;
   let startX;
   let scrollLeft;
 
   itemsContainer.addEventListener('mousedown', (e) => {
     isDragging = true;
-    startX = e.pageX - itemsContainer.getBoundingClientRect().left; // Use getBoundingClientRect to ensure accurate position
+    startX = e.clientX - itemsContainer.getBoundingClientRect().left; // Using clientX
     scrollLeft = itemsContainer.scrollLeft;
     itemsContainer.classList.add('active');
   });
@@ -24,12 +23,7 @@
   itemsContainer.addEventListener('mousemove', (e) => {
     if (!isDragging) return;
     e.preventDefault();
-    const x = e.pageX - itemsContainer.getBoundingClientRect().left; // Adjust to use getBoundingClientRect
-    const walk = (x - startX) * 2; 
+    const x = e.clientX - itemsContainer.getBoundingClientRect().left; // Using clientX
+    const walk = (x - startX) * 2; // Adjust drag speed if needed
     itemsContainer.scrollLeft = scrollLeft - walk;
-
-    if (itemsContainer.scrollLeft < 0) {
-      itemsContainer.scrollLeft = 0;
-    }
   });
-</script>
